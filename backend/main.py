@@ -58,7 +58,22 @@ class IntakeSubmission(BaseModel):
         return v
 
 # ===== ENDPOINTS =====
+# In-memory storage for demo (replace with database later)
+reports_storage = {}
 
+@app.get("/api/v1/report/{report_id}")
+async def get_report(report_id: str):
+    """
+    Retrieve generated report by ID.
+    """
+    if report_id in reports_storage:
+        return reports_storage[report_id]
+    else:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Report {report_id} not found"
+        )
+    
 @app.get("/")
 def health_check():
     """API health check"""
