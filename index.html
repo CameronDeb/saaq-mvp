@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAAQ Assessment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .version-select {
+            margin-bottom: 30px;
+        }
+        
+        .version-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .version-card:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        
+        .version-card.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .version-card h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .version-card p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+        
+        .question-container {
+            display: none;
+            margin-bottom: 30px;
+        }
+        
+        .question-container.active {
+            display: block;
+        }
+        
+        .question-header {
+            background: #f8f9ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .question-number {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .question-text {
+            color: #333;
+            font-size: 18px;
+            margin-top: 5px;
+            line-height: 1.6;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+        
+        .start-screen, .quiz-screen, .complete-screen {
+            display: none;
+        }
+        
+        .start-screen.active, .quiz-screen.active, .complete-screen.active {
+            display: block;
+        }
+        
+        .complete-screen {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #4CAF50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 40px;
+        }
+        
+        .user-info {
+            margin-bottom: 30px;
+        }
+        
+        .user-info input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .user-info input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Start Screen -->
+        <div class="start-screen active">
+            <h1>SkillfullyAware Assessment</h1>
+            <p class="subtitle">Discover your developmental stage and leadership profile</p>
+            
+            <div class="user-info">
+                <input type="email" id="email" placeholder="Email address (required)" required>
+                <input type="text" id="firstName" placeholder="First name (optional)">
+            </div>
+            
+            <div class="version-select">
+                <h3 style="margin-bottom: 15px; color: #333;">Choose Assessment Type:</h3>
+                
+                <div class="version-card" data-version="forum-ready-15-v1" onclick="selectVersion(this)">
+                    <h3>Forum Intake (Recommended)</h3>
+                    <p>Streamlined 15-question assessment for EO/YPO forums</p>
+                    <span class="badge">20 minutes</span>
+                    <span class="badge">15 questions</span>
+                </div>
+                
+                <div class="version-card" data-version="master-29-v1" onclick="selectVersion(this)">
+                    <h3>Full Assessment</h3>
+                    <p>Comprehensive 29-question diagnostic</p>
+                    <span class="badge">30-40 minutes</span>
+                    <span class="badge">29 questions</span>
+                </div>
+            </div>
+            
+            <button class="btn-primary" onclick="startAssessment()" style="width: 100%;">
+                Begin Assessment
+            </button>
+        </div>
+        
+        <!-- Quiz Screen -->
+        <div class="quiz-screen">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            
+            <div id="questionsContainer"></div>
+            
+            <div class="button-group">
+                <button class="btn-secondary" onclick="previousQuestion()" id="prevBtn">
+                    ← Previous
+                </button>
+                <button class="btn-primary" onclick="nextQuestion()" id="nextBtn">
+                    Next →
+                </button>
+                <button class="btn-primary" onclick="submitAssessment()" id="submitBtn" style="display: none;">
+                    Submit Assessment
+                </button>
+            </div>
+        </div>
+        
+        <!-- Complete Screen -->
+        <div class="complete-screen">
+            <div class="checkmark">✓</div>
+            <h1>Assessment Complete!</h1>
+            <p class="subtitle" style="margin: 20px 0;">Your responses have been submitted successfully.</p>
+            <p style="color: #666; margin-bottom: 30px;">
+                Your personalized SAAQ report will be generated shortly.<br>
+                Report ID: <strong id="reportId"></strong>
+            </p>
+            <button class="btn-primary" onclick="location.reload()">
+                Take Another Assessment
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let selectedVersion = null;
+        let currentQuestion = 0;
+        let questions = [];
+        let responses = [];
+        let userData = {};
+
+        // Sample questions for 15Q version
+        const questions15 = [
+            "Tell us about a recent challenge. What happened, and how did you deal with it?",
+            "When you're overwhelmed or afraid, what happens in your body, and how does it show up in your behavior?",
+            "Looking back, how has your understanding of yourself and the world changed most over the years?",
+            "Tell us about a time when you felt misunderstood. How did you handle it, and what did you learn?",
+            "Tell us about a time when your values were tested. What did you discover about yourself?",
+            "Can you describe a moment when you felt pulled between two opposing values, impulses, or desires? How did you navigate it?",
+            "What do you notice about your inner voice or self-talk? How do you relate to it?",
+            "In groups, what role do you most often play? How do others tend to experience you?",
+            "How do you stay open to people with very different views? What helps you stay connected?",
+            "What really gets under your skin about other people? What do you most admire?",
+            "How do you relate to your body and energy right now? Has this changed over time?",
+            "What is money, and how do you relate to it? What habits, emotions, or stories come up around earning, spending, saving, or investing?",
+            "What role do creativity and imagination play in your life? How do you express them?",
+            "How do you understand or connect with something larger than yourself (God, spirit, Universe)?",
+            "When you face setbacks, what does your self-talk sound like? What helps you move forward?"
+        ];
+
+        function selectVersion(card) {
+            document.querySelectorAll('.version-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedVersion = card.dataset.version;
+        }
+
+        function startAssessment() {
+            const email = document.getElementById('email').value;
+            const firstName = document.getElementById('firstName').value;
+            
+            if (!email) {
+                alert('Please enter your email address');
+                return;
+            }
+            
+            if (!selectedVersion) {
+                alert('Please select an assessment type');
+                return;
+            }
+            
+            userData = { email, firstName };
+            questions = selectedVersion === 'forum-ready-15-v1' ? questions15 : questions15; // Use 15 for demo
+            responses = new Array(questions.length).fill('');
+            
+            renderQuestions();
+            showScreen('quiz');
+            updateProgress();
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+            
+            questions.forEach((q, index) => {
+                const div = document.createElement('div');
+                div.className = 'question-container';
+                if (index === 0) div.classList.add('active');
+                
+                div.innerHTML = `
+                    <div class="question-header">
+                        <div class="question-number">Question ${index + 1} of ${questions.length}</div>
+                        <div class="question-text">${q}</div>
+                    </div>
+                    <textarea 
+                        id="answer-${index}" 
+                        placeholder="Type your response here..."
+                        onchange="saveResponse(${index}, this.value)"
+                    >${responses[index]}</textarea>
+                `;
+                
+                container.appendChild(div);
+            });
+        }
+
+        function saveResponse(index, value) {
+            responses[index] = value;
+        }
+
+        function showQuestion(index) {
+            document.querySelectorAll('.question-container').forEach((q, i) => {
+                q.classList.toggle('active', i === index);
+            });
+            
+            currentQuestion = index;
+            updateProgress();
+            updateButtons();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                showQuestion(currentQuestion + 1);
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                showQuestion(currentQuestion - 1);
+            }
+        }
+
+        function updateButtons() {
+            document.getElementById('prevBtn').style.display = currentQuestion === 0 ? 'none' : 'block';
+            document.getElementById('nextBtn').style.display = currentQuestion === questions.length - 1 ? 'none' : 'block';
+            document.getElementById('submitBtn').style.display = currentQuestion === questions.length - 1 ? 'block' : 'none';
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function showScreen(screen) {
+            document.querySelectorAll('.start-screen, .quiz-screen, .complete-screen').forEach(s => {
+                s.classList.remove('active');
+            });
+            document.querySelector(`.${screen}-screen`).classList.add('active');
+        }
+
+        async function submitAssessment() {
+            // Check if all questions answered
+            const unanswered = responses.findIndex(r => !r || r.trim().length < 10);
+            if (unanswered !== -1) {
+                alert(`Please answer question ${unanswered + 1} (minimum 10 characters)`);
+                showQuestion(unanswered);
+                return;
+            }
+            
+            const submission = {
+                email: userData.email,
+                first_name: userData.firstName || null,
+                intake_version: selectedVersion,
+                responses: questions.map((q, i) => ({
+                    q_id: `Q${i + 1}`,
+                    question_text: q,
+                    answer_text: responses[i],
+                    word_count: responses[i].split(/\s+/).length
+                }))
+            };
+            
+            try {
+                const response = await fetch('http://localhost:8000/api/v1/intake/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(submission)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('reportId').textContent = data.intake_id;
+                    showScreen('complete');
+                } else {
+                    alert('Error submitting assessment: ' + data.detail);
+                }
+            } catch (error) {
+                alert('Error connecting to server. Make sure the backend is running on localhost:8000');
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>
