@@ -1,13 +1,16 @@
 """
 SAAQ API - Main Application Entry Point
 """
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 from typing import List, Dict, Optional, Literal
 from datetime import datetime
 import uuid
+import json
+
 from supabase_client import get_supabase
+from services.report_generator import ReportGenerator 
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -33,7 +36,8 @@ class IntakeResponse(BaseModel):
     answer_text: str
     word_count: Optional[int] = None
 
-    @validator('answer_text')
+    @field_validator('answer_text')
+    @classmethod
     def answer_not_empty(cls, v):
         if not v or len(v.strip()) < 10:
             raise ValueError('Answer must be at least 10 characters')
@@ -47,9 +51,10 @@ class IntakeSubmission(BaseModel):
     responses: List[IntakeResponse]
     context: Optional[Dict] = {}
 
-    @validator('responses')
-    def validate_question_count(cls, v, values):
-        version = values.get('intake_version')
+    @field_validator('responses')
+    @classmethod
+    def validate_question_count(cls, v, info):
+        version = info.data.get('intake_version')
         expected_count = 15 if version == "forum-ready-15-v1" else 29
         
         if len(v) != expected_count:
