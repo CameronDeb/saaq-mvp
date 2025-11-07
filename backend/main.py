@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field, validator
 from typing import List, Dict, Optional, Literal
 from datetime import datetime
 import uuid
+from supabase_client import get_supabase
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -75,6 +76,21 @@ def health_check():
         }
     }
 
+@app.get("/api/v1/test-supabase")
+async def test_supabase():
+    """Test Supabase connection"""
+    try:
+        supabase = get_supabase()
+        # Try to query intake_versions table
+        result = supabase.table('intake_versions').select("*").execute()
+        return {
+            "status": "connected",
+            "message": "Supabase connected!",
+            "versions_count": len(result.data)
+        }
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
 @app.get("/health")
 def health():
     """Detailed health check"""
@@ -114,31 +130,71 @@ async def list_intake_versions():
 
 @app.post("/api/v1/intake/submit")
 async def submit_intake(submission: IntakeSubmission):
-    """
-    Accept intake responses for either 15Q or 29Q version.
-    Validates question count, stores in DB, enqueues scoring.
-    """
+    """Submit intake and save to Supabase"""
     
-    # Generate IDs
     intake_id = str(uuid.uuid4())
-    user_id = submission.user_id or str(uuid.uuid4())
+    report_id = str(uuid.uuid4())
     
-    # TODO: Store in database
-    # TODO: Enqueue scoring job based on version
-    
-    print(f"📥 Received intake: {intake_id}")
-    print(f"   Version: {submission.intake_version}")
-    print(f"   Responses: {len(submission.responses)}")
-    print(f"   User: {submission.first_name or 'Anonymous'}")
-    
-    return {
-        "intake_id": intake_id,
-        "user_id": user_id,
-        "version": submission.intake_version,
-        "status": "submitted",
-        "expected_completion": "15-30 minutes",
-        "message": f"Successfully received {len(submission.responses)} responses"
-    }
+    try:
+        supabase = get_supabase()
+        
+        # 1. Insert/update user
+        user_data = {
+            "id": str(uuid.uuid4()),
+            "email": submission.email,
+            "first_name": submission.first_name
+        }
+        
+        user_result = supabase.table('users').upsert(user_data).execute()
+        user_id = user_result.data[0]['id'] if user_result.data else user_data['id']
+        
+        # 2. Insert intake
+        intake_data = {
+            "id": intake_id,
+            "user_id": user_id,
+            "version_id": submission.intake_version,
+            "responses": [r.dict() for r in submission.responses],
+            "status": "submitted"
+        }
+        
+        supabase.table('intakes').insert(intake_data).execute()
+        
+        # 3. Generate report
+        report_input = {
+            "intake_id": intake_id,
+            "user_id": user_id,
+            "email": submission.email,
+            "first_name": submission.first_name,
+            "intake_version": submission.intake_version,
+            "responses": [r.dict() for r in submission.responses]
+        }
+        
+        generator = ReportGenerator(report_input)
+        report = generator.generate_report()
+        
+        # 4. Save report
+        report_data = {
+            "id": report_id,
+            "intake_id": intake_id,
+            "report_data": report,
+            "status": "completed"
+        }
+        
+        supabase.table('reports').insert(report_data).execute()
+        
+        print(f"✅ Saved to Supabase: intake={intake_id}, report={report_id}")
+        
+        return {
+            "intake_id": intake_id,
+            "report_id": report_id,
+            "status": "completed",
+            "message": "Assessment saved successfully!",
+            "report": report
+        }
+        
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/api/v1/report/{report_id}")
 async def get_report(report_id: str):
