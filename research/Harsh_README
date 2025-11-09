@@ -1,0 +1,86 @@
+SAAQ Backend — Stage Classifier & Awareness Quotient
+
+This backend implements two self-contained psychometric modules for the SAAQ Project:
+
+1. Stage Classifier – evaluates developmental “Stages of Awareness” (S1–S8) using linguistic, cognitive, and emotional indicators.  
+2. Awareness Quotient (AQ) – quantifies depth of awareness across six key dimensions: Self-Awareness, Emotional Regulation, Perspective Awareness, Meta-Awareness, Systemic Awareness, and Integrative Awareness.
+
+Both modules are standalone, require no external APIs, and run fully offline using deterministic scoring logic.
+
+---------------------------------------------------------------------
+Project Structure
+---------------------------------------------------------------------
+backend/
+├── stage_classifier.py           - Core logic for stage-based development classification
+├── test_stage_classifier.py      - Local tests for Stage Classifier
+├── awareness_quotient.py         - Core logic for Awareness Quotient computation
+├── test_awareness_quotient.py    - Local tests for Awareness Quotient
+└── README.txt                    - Documentation and setup instructions
+
+---------------------------------------------------------------------
+Setup Instructions
+---------------------------------------------------------------------
+1. Create and activate a virtual environment:
+   python3 -m venv venv
+   source venv/bin/activate
+
+2. Install dependencies:
+   pip install -r requirements.txt
+
+---------------------------------------------------------------------
+Usage
+---------------------------------------------------------------------
+Stage Classifier:
+   python3 test_stage_classifier.py
+
+Awareness Quotient:
+   python3 test_awareness_quotient.py
+
+---------------------------------------------------------------------
+Testing Overview
+---------------------------------------------------------------------
+Each test script includes:
+- Edge cases (empty strings, noise, multilingual text)
+- Reactive → Reflective → Integrative test progressions
+- Consistent scaling validation
+- Formatted JSON outputs with readable summaries
+
+Run both:
+   python3 test_stage_classifier.py
+   python3 test_awareness_quotient.py
+
+---------------------------------------------------------------------
+Technical Details
+---------------------------------------------------------------------
+Language: Python 3.10+
+Libraries: re, json, math, time (all standard)
+
+Design Goals:
+- Fully deterministic scoring logic (no stochastic AI models)
+- Interpretable, explainable, human-readable metrics
+- Modular functions for integration with future indices
+
+Outputs:
+Each module produces numeric composite scores, sub-scores, and interpretive summaries.
+
+---------------------------------------------------------------------
+Future Modules
+---------------------------------------------------------------------
+- Hemispheric Bias Analyzer (left/right-brain balance)
+- Power Centers Profiler (Cognitive, Emotional, Relational, Somatic, Spiritual)
+- Unified Meta-Assessment API
+
+---------------------------------------------------------------------
+Author
+---------------------------------------------------------------------
+Developed by Harsh Jain (University of Arizona)
+Lead contributor to the SAAQ Project — integrating developmental psychology,
+linguistics, and computational modeling.
+
+---------------------------------------------------------------------
+Requirements
+---------------------------------------------------------------------
+re
+json
+math
+time
