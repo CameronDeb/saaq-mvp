@@ -1,6 +1,6 @@
 """
 Cameron's Metrics Prototype
-Core Aptitudes + Shadow Indicators + KPIs
+Core Aptitudes + Shadow Indicators + KPIs.
 """
 
 from sentence_transformers import SentenceTransformer
