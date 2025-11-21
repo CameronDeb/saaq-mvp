@@ -1,0 +1,73 @@
+{
+  "report_metadata": {
+    "user_name": "Alex",
+    "report_date": "2025-11-20T20:44:15.615504",
+    "test_type": "Simple Integration Test"
+  },
+  "stage_diagnosis": {
+    "stage_score": 99.99,
+    "stage_label": "S8 Transcendent",
+    "confidence": 1.0,
+    "word_count": 316,
+    "indicators": {
+      "Linguistic Complexity": 8.03,
+      "Causal Reasoning": 0.0,
+      "Meta-cognition": 11.5,
+      "Abstraction/Systems": 6.5,
+      "Emotion Regulation": 3.0,
+      "Perspective Breadth": 10.0,
+      "Both/And Thinking": 9.0
+    }
+  },
+  "awareness_quotient": {
+    "awareness_score": 187.45,
+    "awareness_label": "Exceptional Awareness",
+    "indicators": {
+      "Self-Awareness": 22.14,
+      "Emotional Regulation": 22.14,
+      "Perspective Awareness": 3.16,
+      "Meta-Awareness": 0.0,
+      "Systemic Awareness": 18.98,
+      "Integrative Awareness": 24.51
+    },
+    "balance_index": 52.6,
+    "interpretive_summary": "Exceptional awareness integrating Self-Awareness, Emotional Regulation, Systemic Awareness, Integrative Awareness with strong systemic and reflective depth.",
+    "word_count": 316
+  },
+  "hemispheric_bias": {
+    "hemispheric_score": 13.44,
+    "dominant_hemisphere": "Right",
+    "confidence": 0.15,
+    "indicators": {
+      "Analytic Thinking": 4,
+      "Sequential Logic": 0,
+      "Language Structure": 7,
+      "Emotional Imagery": 7,
+      "Creative Association": 5,
+      "Spatial/Intuitive Reasoning": 3
+    },
+    "interpretive_summary": "Right-hemisphere tilt detected (score 13.4). Top surface indicators: Language Structure (7), Emotional Imagery (7). Right-hemisphere bias with emphasis on imagery, metaphor, and intuitive associations. Consider integrating structured steps or explicit data points when clarity or execution is needed. Confidence: 0.15."
+  },
+  "power_centers": {
+    "power_profile": {
+      "Cognitive": 3.99,
+      "Emotional": 1.5,
+      "Relational": 6.99,
+      "Somatic": 5.49,
+      "Spiritual": 3.49
+    },
+    "dominant_center": "Relational",
+    "balance_index": 62.9,
+    "interpretive_summary": "Dominant relational center (6.99/10) \u2014 socially oriented, connection-seeking focus. Secondary influences: Somatic. Overall profile appears moderately balanced (balance index 62.9)."
+  },
+  "core_aptitudes": {
+    "Drive": 37,
+    "Alignment": 37,
+    "Restraint": 0
+  },
+  "shadow_indicators": {
+    "control_reflex": 33,
+    "quick_relief": 0,
+    "lone_rescuer": 20
+  }
+}

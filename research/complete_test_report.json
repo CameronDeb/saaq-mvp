@@ -1,0 +1,107 @@
+{
+  "user_name": "Alex",
+  "report_date": "2025-11-20T20:28:51.324803",
+  "intake_id": "test-integration-001",
+  "stage_diagnosis": {
+    "center_of_gravity": "S8",
+    "confidence": 0.43,
+    "scores": {
+      "S5": 2,
+      "S6": 1,
+      "S7": 1,
+      "S8": 3
+    },
+    "evidence": [
+      "I faced a complex technical problem that required systematic analysis and careful planning. I broke it down into steps and solved it methodically."
+    ],
+    "description": "Authoring Strategist: Designs systems from core values, self-authored identity."
+  },
+  "hemispheric_bias": {
+    "tilt": "integrated",
+    "left_weight": 0.57,
+    "right_weight": 0.43,
+    "description": "Integrated: Balanced use of both analytical and relational capacities."
+  },
+  "power_centers": [
+    {
+      "name": "Vital",
+      "status": "Mixed",
+      "evidence": "my chest tightens and i feel the need to control everything. i breathe shallowly and try to manage all the details myself. i'm more aware of tension in my body now. i notice when i'm holding stress an"
+    },
+    {
+      "name": "Emotional",
+      "status": "Mature",
+      "evidence": "i notice my self-talk can be harsh and critical. i'm learning to be more compassionate with myself and question negative thoughts."
+    },
+    {
+      "name": "Relational",
+      "status": "Strong",
+      "evidence": "when i tried explaining my vision, others couldn't see it. i learned to communicate more clearly and meet people where they are. i tend to facilitate and help the group see different perspectives. oth"
+    },
+    {
+      "name": "Social/Leadership",
+      "status": "Strong",
+      "evidence": "i tend to facilitate and help the group see different perspectives. others say i help them think more deeply."
+    },
+    {
+      "name": "Financial",
+      "status": "Healthy",
+      "evidence": "money represents freedom and security to me. i'm disciplined about saving and investing for long-term goals."
+    },
+    {
+      "name": "Creative",
+      "status": "Strong",
+      "evidence": "i express creativity through problem-solving and writing. imagination helps me envision possibilities beyond current constraints."
+    },
+    {
+      "name": "Intellectual",
+      "status": "Strong",
+      "evidence": "i've learned to integrate multiple perspectives and see systems holistically. i value both logic and intuition now."
+    },
+    {
+      "name": "Spiritual",
+      "status": "Integrated",
+      "evidence": "i find meaning through meditation and contemplating my place in the universe. i feel connected to a larger purpose through serving others."
+    }
+  ],
+  "aptitudes": [
+    {
+      "name": "Autonomy/Influence",
+      "level": "Moderate"
+    },
+    {
+      "name": "Drive",
+      "level": "High"
+    },
+    {
+      "name": "Perseverance",
+      "level": "Moderate"
+    },
+    {
+      "name": "Achievement",
+      "level": "Moderate"
+    },
+    {
+      "name": "Alignment",
+      "level": "Developing"
+    },
+    {
+      "name": "Restraint",
+      "level": "Developing"
+    }
+  ],
+  "shadow_patterns": {
+    "loops": [
+      "control_reflex",
+      "lone_rescuer"
+    ],
+    "root_fear": "Extracted from Q2, Q6 responses",
+    "root_shame": "Extracted from Q5, Q7 responses",
+    "antidotes": [
+      "Pause before acting",
+      "Name emotions",
+      "Seek support"
+    ]
+  },
+  "awareness_summary": "\n        You demonstrate a center of gravity at S8 with integrated \n        hemispheric bias. Your responses show strength in relational awareness and values alignment. \n        Key growth edges include developing consistent restraint practices and integrating multiple \n        perspectives under stress.\n        "
+}
