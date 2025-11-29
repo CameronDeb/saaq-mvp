@@ -1,0 +1,62 @@
+{
+  "subject": "Mark Pirtle (SA360 Creator)",
+  "stage_diagnosis": {
+    "stage_score": 52.85,
+    "stage_label": "S5 Achiever",
+    "confidence": 0.71,
+    "word_count": 768,
+    "indicators": {
+      "Linguistic Complexity": 10.0,
+      "Causal Reasoning": 7.5,
+      "Meta-cognition": 6.0,
+      "Abstraction/Systems": 4.0,
+      "Emotion Regulation": 2.0,
+      "Perspective Breadth": 0.0,
+      "Both/And Thinking": 2.0
+    }
+  },
+  "awareness_quotient": {
+    "awareness_score": 21.49,
+    "awareness_label": "Moderate Awareness",
+    "indicators": {
+      "Self-Awareness": 4.2,
+      "Emotional Regulation": 9.45,
+      "Perspective Awareness": 1.05,
+      "Meta-Awareness": 0.0,
+      "Systemic Awareness": 0.0,
+      "Integrative Awareness": 0.0
+    },
+    "balance_index": 0.0,
+    "interpretive_summary": "Moderate awareness, showing development in Emotional Regulation, but still uneven across others.",
+    "word_count": 800
+  },
+  "hemispheric_bias": {
+    "hemispheric_score": 34.68,
+    "dominant_hemisphere": "Right",
+    "confidence": 0.27,
+    "indicators": {
+      "Analytic Thinking": 2,
+      "Sequential Logic": 1,
+      "Language Structure": 12,
+      "Emotional Imagery": 12,
+      "Creative Association": 10,
+      "Spatial/Intuitive Reasoning": 3
+    },
+    "interpretive_summary": "Right-hemisphere tilt detected (score 34.7). Top surface indicators: Language Structure (12), Emotional Imagery (12). Right-hemisphere bias with emphasis on imagery, metaphor, and intuitive associations. Consider integrating structured steps or explicit data points when clarity or execution is needed. Confidence: 0.27."
+  },
+  "power_centers": {
+    "power_profile": {
+      "Cognitive": 0.43,
+      "Emotional": 2.16,
+      "Relational": 8.22,
+      "Somatic": 2.16,
+      "Spiritual": 5.19,
+      "Vital": 1.73,
+      "Social/Leadership": 1.3,
+      "Financial": 10.0
+    },
+    "dominant_center": "Financial",
+    "balance_index": 34.0,
+    "interpretive_summary": "Dominant Financial center (10.0/10) \u2014 money, resources, and stewardship focus. Secondary influence: Relational. Profile appears unevenly distributed (balance index 34.0)."
+  }
+}
